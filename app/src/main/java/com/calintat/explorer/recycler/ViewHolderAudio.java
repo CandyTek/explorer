@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.calintat.explorer.R;
 
 import java.io.File;
@@ -63,7 +62,9 @@ final class ViewHolderAudio extends ViewHolder {
 
             retriever.setDataSource(file.getPath());
 
-            Glide.with(context).load(retriever.getEmbeddedPicture()).into(image);
+            // Glide.with(context).load(retriever.getEmbeddedPicture()).into(image);
+
+            // retriever.getEmbeddedPicture()
         }
         catch (Exception e) {
 

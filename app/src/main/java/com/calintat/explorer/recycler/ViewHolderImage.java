@@ -8,9 +8,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.calintat.explorer.R;
 import com.calintat.explorer.utils.FileUtils;
 import com.calintat.explorer.utils.PreferenceUtils;
@@ -22,62 +19,53 @@ import static com.calintat.explorer.utils.FileUtils.getName;
 
 final class ViewHolderImage extends ViewHolder {
 
-    private TextView name;
+	private TextView name;
 
-    private TextView date;
+	private TextView date;
 
-    ViewHolderImage(Context context, OnItemClickListener listener, View view) {
-        super(context, listener, view);
-    }
+	ViewHolderImage(Context context,OnItemClickListener listener,View view) {
+		super(context,listener,view);
+	}
 
-    @Override
-    protected void loadIcon() {
+	@Override
+	protected void loadIcon() {
 
-        image = (ImageView) itemView.findViewById(R.id.list_item_image);
-    }
+		image = (ImageView) itemView.findViewById(R.id.list_item_image);
+	}
 
-    @Override
-    protected void loadName() {
+	@Override
+	protected void loadName() {
 
-        name = (TextView) itemView.findViewById(R.id.list_item_name);
-    }
+		name = (TextView) itemView.findViewById(R.id.list_item_name);
+	}
 
-    @Override
-    protected void loadInfo() {
+	@Override
+	protected void loadInfo() {
 
-        date = (TextView) itemView.findViewById(R.id.list_item_date);
-    }
+		date = (TextView) itemView.findViewById(R.id.list_item_date);
+	}
 
-    @Override
-    protected void bindIcon(File file, Boolean selected) {
+	@Override
+	protected void bindIcon(File file,Boolean selected) {
 
-        final int color = ContextCompat.getColor(context, getColorResource(file));
+		final int color = ContextCompat.getColor(context,getColorResource(file));
+		// this.view.setImageBitmap(resource);
+		
+	}
 
-        Glide.with(context).load(file).asBitmap().fitCenter().into(new BitmapImageViewTarget(image) {
+	@Override
+	protected void bindName(File file) {
 
-            @Override
-            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> animation) {
+		boolean extension = PreferenceUtils.getBoolean(context,"pref_extension",true);
 
-                this.view.setImageBitmap(resource);
+		name.setText(extension ? getName(file) : file.getName());
+	}
 
-                name.setBackgroundColor(Palette.from(resource).generate().getMutedColor(color));
-            }
-        });
-    }
+	@Override
+	protected void bindInfo(File file) {
 
-    @Override
-    protected void bindName(File file) {
+		if (date == null) return;
 
-        boolean extension = PreferenceUtils.getBoolean(context, "pref_extension", true);
-
-        name.setText(extension ? getName(file) : file.getName());
-    }
-
-    @Override
-    protected void bindInfo(File file) {
-
-        if (date == null) return;
-
-        date.setText(FileUtils.getLastModified(file));
-    }
+		date.setText(FileUtils.getLastModified(file));
+	}
 }

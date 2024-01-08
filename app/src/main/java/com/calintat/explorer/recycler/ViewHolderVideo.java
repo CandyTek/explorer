@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.calintat.explorer.R;
 import com.calintat.explorer.utils.FileUtils;
 import com.calintat.explorer.utils.PreferenceUtils;
@@ -46,7 +45,7 @@ final class ViewHolderVideo extends ViewHolder {
     @Override
     protected void bindIcon(File file, Boolean selected) {
 
-        Glide.with(context).load(file).into(image);
+        // Glide.with(context).load(file).into(image);
     }
 
     @Override
